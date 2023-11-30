@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.0](https://github.com/samuel-adjin/tasty-release-please/compare/v1.0.0...v1.1.0) (2023-11-30)
+
+
+### Features
+
+* config file added ([50bdb3b](https://github.com/samuel-adjin/tasty-release-please/commit/50bdb3bf0ca69af19a452b7f14fd5255b4b2ed3c))
+* config file added ([ed8020e](https://github.com/samuel-adjin/tasty-release-please/commit/ed8020e80c754e1966fa82f31bea0e1def8e9952))
+* **frontend:** pr actions added [KI-1] ([87c2e57](https://github.com/samuel-adjin/tasty-release-please/commit/87c2e5782e5a3aac9c07a7425868bab781670b22))
+* **frontend:** pr actions added [KI-1] ([44b9cf7](https://github.com/samuel-adjin/tasty-release-please/commit/44b9cf76a176e5cf132f63f0285db9fdf58fd46b))
+* pr actions added [KI-1] ([490dc23](https://github.com/samuel-adjin/tasty-release-please/commit/490dc2325370a868e0698704078f8f482245e363))
+
+
+### Bug Fixes
+
+* config file added ([dab83ed](https://github.com/samuel-adjin/tasty-release-please/commit/dab83ed37aefa10d03826fd19e0ac52629619c48))
+
 ## 1.0.0 (2023-11-30)
 
 
