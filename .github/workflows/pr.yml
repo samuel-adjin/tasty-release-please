@@ -33,7 +33,7 @@ on:
 jobs:
   publish-image:
     name: Validate Pr title for Conventional Style Commit
-    runs-on: myigus-ubuntu-latest
+    runs-on: ubuntu-latest
 
     permissions:
       pull-requests: read
