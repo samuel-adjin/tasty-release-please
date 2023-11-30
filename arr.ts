@@ -1,3 +1,3 @@
 export const arr=[
-"hellojbh jkkkkokigigigjjmmkkjjjkk jkkk kkk v gbdh ggd kjnklikmllkfjg4"
+"hellojbh jkkkkokigigigjjmmkkjjjkk jkkk kkk v k kfgbdh ggd kjnklikmllkfjg4"
 ]
