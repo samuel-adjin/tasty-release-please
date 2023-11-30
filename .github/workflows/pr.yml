@@ -19,7 +19,7 @@ jobs:
       - name: Check Pr title for ticket Number
         uses: Slashgear/action-check-pr-title@v4.3.0
         with:
-          regexp: /\[MYI-.+]\s*$/
+          regexp: /.*(\[MYI-(\d+)\]$)/
           helpMessage: "Title must contain ticket number [MYI-2]"
 
 
