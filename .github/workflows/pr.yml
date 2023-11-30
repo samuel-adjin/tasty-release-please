@@ -1,21 +1,19 @@
-name: PR Lint
+name: Check PR title
 
 on:
-  pull_request:
-    types: [opened, edited, reopened, synchronize, ready_for_review]
-    branches: [master]
-
-  workflow_dispatch:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
 
 jobs:
-  pr-lint:
-    name: Validate PR commit title meets commit convention
+  lint:
     runs-on: ubuntu-latest
+    permissions:
+      statuses: write
     steps:
-      - uses: ytanikin/PRConventionalCommits@1.1.0
+      - uses: aslafy-z/conventional-pr-title-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
-          add_label: 'false'
-          ticket_key_regex: '/\[KI-[^\]]+\]$/'
