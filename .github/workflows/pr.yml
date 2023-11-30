@@ -16,11 +16,7 @@ jobs:
         uses: amannn/action-semantic-pull-request@v5
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check Pr title for ticket Number
-        uses: Slashgear/action-check-pr-title@v4.3.0
-        with:
-          regexp: /.*(\[MYI-(\d+)\]$)/
-          helpMessage: "Title must contain ticket number [MYI-2]"
+
 
 
 
