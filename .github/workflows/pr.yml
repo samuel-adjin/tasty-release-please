@@ -3,7 +3,7 @@ name: PR Lint
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize, ready_for_review]
-    branches: [main]
+    branches: [master]
 
   workflow_dispatch:
 
@@ -12,9 +12,10 @@ jobs:
     name: Validate PR commit title meets commit convention
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v4.5.0
+      - uses: ytanikin/PRConventionalCommits@1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          validateSingleCommit: true
-          validateSingleCommitMatchesPrTitle: true
+          task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
+          add_label: 'false'
+          ticket_key_regex: '/\[KI-[^\]]+\]$/'
