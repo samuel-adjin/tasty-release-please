@@ -38,7 +38,7 @@ jobs:
       - name: Read JSON File
         id: read-json
         run: |
-          JSON_DATA=$(cat data.json)
+          JSON_DATA=$(cat repo.json)
           echo "::set-output name=jsonData::$JSON_DATA"
 
       - name: Use JSON Data
