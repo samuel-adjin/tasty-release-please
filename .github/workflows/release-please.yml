@@ -1,20 +1,48 @@
+# on:
+#   push:
+#     branches:
+#       - master
+
+# permissions:
+#   contents: write
+#   pull-requests: write
+
+# name: release-please
+
+# jobs:
+#   release-please:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: google-github-actions/release-please-action@v3
+#         with:
+#           config-file: release-please-config.json
+#           manifest-file: .release-please-manifest.json
+#           release-type: node
+
+
+name: Read JSON Example
+
 on:
   push:
     branches:
       - master
 
-permissions:
-  contents: write
-  pull-requests: write
-
-name: release-please
-
 jobs:
-  release-please:
+  read-json:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: google-github-actions/release-please-action@v3
-        with:
-          config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
-          release-type: node
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Read JSON File
+        id: read-json
+        run: |
+          JSON_DATA=$(cat data.json)
+          echo "::set-output name=jsonData::$JSON_DATA"
+
+      - name: Use JSON Data
+        run: |
+          echo "JSON Data: ${{ steps.read-json.outputs.jsonData }}"
+          REPOSITORIES=$(echo ${{ steps.read-json.outputs.jsonData }} | jq -r '.repositories[]')
+          echo "Repositories: $REPOSITORIES"
