@@ -1,3 +1,10 @@
 {
-  "repositories": ["repo1", "repo2", "repo3"]
+    "include": [
+    {
+        "name": "Mario"
+    },
+    {
+        "name": "Luigi"
+    }
+    ]
 }

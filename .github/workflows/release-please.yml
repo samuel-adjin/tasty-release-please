@@ -5,25 +5,37 @@ on:
     branches:
       - master
 
+# jobs:
+#   create-repos:
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         repo_name: ["repo1", "repo2", "repo3"]
+
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
+#       - name: Create and Configure ECR Repositories
+#         run: |
+#            echo "Creating and configuring ECR repositories: ${{ matrix.repo_name }}"
+
 jobs:
-  create-repos:
+  configure:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        repo_name: ["repo1", "repo2", "repo3"]
-
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+     - name: Checkout to repository
+       uses: actions/checkout@v3
+     - name: Set matrix data
+       id: set-matrix
+       run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
 
-      # - name: Set up AWS CLI
-      #   uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: <your-region> # Replace with your AWS region
-
-      - name: Create and Configure ECR Repositories
-        run: |
-           echo "Creating and configuring ECR repositories: ${{ matrix.repo_name }}"
+  print:
+    runs-on: ubuntu-latest
+    needs: configure
+    strategy:
+      matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+    steps:
+     - run: echo ${{ matrix.name }}
