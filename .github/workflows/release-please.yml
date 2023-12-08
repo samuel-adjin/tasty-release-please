@@ -1,20 +1,48 @@
+# on:
+#   push:
+#     branches:
+#       - master
+
+# permissions:
+#   contents: write
+#   pull-requests: write
+
+# name: release-please
+
+# jobs:
+#   release-please:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: google-github-actions/release-please-action@v3
+#         with:
+#           # config-file: release-please-config.json
+#           manifest-file: .release-please-manifest.json
+#           release-type: node
+
+
+name: Create ECR Repositories
+
 on:
   push:
     branches:
       - master
 
-permissions:
-  contents: write
-  pull-requests: write
-
-name: release-please
-
 jobs:
-  release-please:
+  create-repos:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: google-github-actions/release-please-action@v3
-        with:
-          # config-file: release-please-config.json
-          manifest-file: .release-please-manifest.json
-          release-type: node
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Create ECR Repositories and Apply Lifecycle Policy
+        run: |
+          REPO_NAMES:
+            - repo1
+            - repo2
+            - repo3
+
+          for REPO_NAME in "${REPO_NAMES[@]}"; do
+            echo "Creating and configuring ECR repository: $REPO_NAME"
+            # Use int128/create-ecr-repository-action or other commands to create and configure the repository
+          done
