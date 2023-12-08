@@ -1,0 +1,22 @@
+name: Pr Title Check
+
+on:
+  pull_request:
+    types: [opened,edited,synchronize,reopened]
+
+jobs:
+  publish-image:
+    name: Validate Pr title for Conventional Style Commit
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: read
+    steps:
+      - name: Check Pr title
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
