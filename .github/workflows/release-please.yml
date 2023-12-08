@@ -4,22 +4,6 @@ on:
   push:
     branches:
       - master
-
-# jobs:
-#   create-repos:
-#     runs-on: ubuntu-latest
-
-#     strategy:
-#       matrix:
-#         repo_name: ["repo1", "repo2", "repo3"]
-
-#     steps:
-#       - name: Checkout Repository
-#         uses: actions/checkout@v2
-#       - name: Create and Configure ECR Repositories
-#         run: |
-#            echo "Creating and configuring ECR repositories: ${{ matrix.repo_name }}"
-
 jobs:
   configure:
     runs-on: ubuntu-latest
@@ -38,4 +22,4 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
     steps:
-     - run: echo ${{ matrix.name }}
+     - run: echo ${{ matrix.repositories }}

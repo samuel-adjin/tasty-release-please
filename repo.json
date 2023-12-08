@@ -1,11 +1,3 @@
-
 {
-    "repo": [
-    {
-        "name": "Mario"
-    },
-    {
-        "name": "Luigi"
-    }
-    ]
+  "repositories": ["repo1", "repo2", "repo3"]
 }
