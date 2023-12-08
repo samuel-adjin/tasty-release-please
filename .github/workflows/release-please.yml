@@ -16,7 +16,7 @@ jobs:
        id: set-matrix
        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
      - name: print repo names
-       run: echo "${{ needs.configure.outputs.matrix }}"
+       run: echo ${{ needs.configure.outputs.matrix }}
 
 
   # print:
