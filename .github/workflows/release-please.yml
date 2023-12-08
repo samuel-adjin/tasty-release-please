@@ -1,22 +1,22 @@
-name: Create ECR Repositories
+# name: Create ECR Repositories
 
-on:
-  push:
-    branches:
-      - master
-jobs:
-  configure:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-     - name: Checkout to repository
-       uses: actions/checkout@v3
-     - name: Set matrix data
-       id: set-matrix
-       run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
-     - name: print repo names
-       run: echo ${{ needs.configure.outputs.matrix }}
+# on:
+#   push:
+#     branches:
+#       - master
+# jobs:
+#   configure:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       matrix: ${{ steps.set-matrix.outputs.matrix }}
+#     steps:
+#      - name: Checkout to repository
+#        uses: actions/checkout@v3
+#      - name: Set matrix data
+#        id: set-matrix
+#        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
+#      - name: print repo names
+#        run: echo ${{ needs.configure.outputs.matrix }}
 
 
   # print:
@@ -30,3 +30,23 @@ jobs:
 
 
 
+name: Create ECR Repositories
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+      - name: Set matrix data
+        id: set-matrix
+        run: echo "::set-output name=matrix::$(cat ./repo.json | jq -c '.')"
+      - name: print repo names
+        run: echo ${{fromJson(needs.configure.outputs.matrix).matrix.repositories}}
