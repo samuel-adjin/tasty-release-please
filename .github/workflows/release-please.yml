@@ -1,26 +1,33 @@
-name: Read JSON Example
+name: Create ECR Repositories
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
-  read-json:
+  create-repos:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo_name: ${{fromJson(file('repo.json')).repositories}}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Read JSON File
-        id: read-json
-        run: |
-            JSON_DATA=$(<repo.json)
-            echo "::set-output name=jsonData::$JSON_DATA"
+      # - name: Set up AWS CLI
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: <your-region> # Replace with your AWS region
 
-      - name: Use JSON Data
+      - name: Create and Configure ECR Repositories
         run: |
-          echo "JSON Data: ${{ steps.read-json.outputs.jsonData }}"
-          REPOSITORIES=$(echo ${{ steps.read-json.outputs.jsonData }} | jq -r '.repositories[]')
-          echo "Repositories: $REPOSITORIES"
+          for REPO_NAME in "${{ matrix.repo_name }}"; do
+            echo "Creating and configuring ECR repository: $REPO_NAME"
+            # aws ecr create-repository --repository-name "$REPO_NAME"
+            # Additional configuration steps if needed
+          done
