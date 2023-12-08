@@ -26,8 +26,4 @@ jobs:
 
       - name: Create and Configure ECR Repositories
         run: |
-          for REPO_NAME in "${{ matrix.repo_name }}"; do
-            echo "Creating and configuring ECR repository: $REPO_NAME"
-            # aws ecr create-repository --repository-name "$REPO_NAME"
-            # Additional configuration steps if needed
-          done
+           echo "Creating and configuring ECR repositories: ${{ matrix.repo_name }}"
