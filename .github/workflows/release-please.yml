@@ -1,36 +1,57 @@
+# name: Create ECR Repositories
+
+# on:
+#   push:
+#     branches:
+#       - master
+# jobs:
+#   configure:
+#     runs-on: ubuntu-latest
+#     outputs:
+#       matrix: ${{ steps.set-matrix.outputs.matrix }}
+#     steps:
+#      - name: Checkout to repository
+#        uses: actions/checkout@v4
+#      - name: Set matrix data
+#        id: set-matrix
+#        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
+       
+#   print:
+#     runs-on: ubuntu-latest
+#     needs: configure
+#     strategy:
+#       matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
+#     steps:
+#      - run: echo ${{ matrix.repositories }}
+
+
 name: Create ECR Repositories
 
 on:
   push:
     branches:
       - master
+
 jobs:
-  configure:
+  create-repositories:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-     - name: Checkout to repository
-       uses: actions/checkout@v4
-     - name: Set matrix data
-       id: set-matrix
-       run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
-     - name: Output Repository name
-       id: repos
-       run: echo ${{ fromJson(steps.set-matrix.outputs.matrix) }}
-     - name: Out repository
-       run: echo ${{ steps.repos.outputs}}
+      - name: Checkout to repository
+        uses: actions/checkout@v4
 
-    #  "${{ steps.set-matrix.outputs.matrix}}"
-       
-  # print:
-  #   runs-on: ubuntu-latest
-  #   needs: configure
-  #   strategy:
-  #     matrix: ${{ fromJson(needs.configure.outputs.matrix) }}
-  #   steps:
-  #    - run: echo ${{ matrix.repositories }}
+      - name: Set matrix data
+        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_ENV
 
+      - name: Create ECR Repositories
+        run: |
+          # Extract repository names from the matrix
+          repositories=$(echo $matrix | jq -r '.repositories | join(" ")')
 
+          # Loop through repositories and create ECR repositories
+          for repo in $repositories; do
+            # Add logic to create ECR repository (replace this with your actual command)
+            echo "Creating ECR repository: $repo"
+            # Your ECR repository creation command goes here
+          done
 
 
