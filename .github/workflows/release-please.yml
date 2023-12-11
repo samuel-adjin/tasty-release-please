@@ -16,7 +16,12 @@ jobs:
        id: set-matrix
        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
      - name: Output Repository name
-       run: echo "${{ steps.set-matrix.outputs.matrix}}"
+       id: repos
+       run: echo ${{ fromJson(steps.set-matrix.outputs.matrix}) }}
+     - name: Out repository
+       run: echo ${{ steps.set-matrix.outputs }}
+
+    #  "${{ steps.set-matrix.outputs.matrix}}"
        
   # print:
   #   runs-on: ubuntu-latest
