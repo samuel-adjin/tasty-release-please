@@ -33,12 +33,45 @@
 #         id: login-ecr
 #         uses: aws-actions/amazon-ecr-login@v2
 #       - name: Create ECR Repositories and Apply Lifecycle Policy
-#         # run: echo ${{ matrix.repositories }}
 #         uses: int128/create-ecr-repository-action@v1
 #         with:
 #           repository: ${{ matrix.repositories }}
 #           lifecycle-policy: config/lifecycle-policy.json
 
+
+
+# name: Create ECR Repositories
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# jobs:
+#   create-repositories:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout to repository
+#         uses: actions/checkout@v4
+
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v4
+#         with:
+#           role-to-assume: ${{ secrets.AWS_ROLE}}
+#           aws-region: ${{ env.AWS_REGION }}
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v2
+
+#       - name: Set matrix data
+#         run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_ENV
+
+#       - name: Create ECR Repositories
+#         run: |
+#           repositories=$(echo $matrix | jq -r '.repositories | join(" ")')
+#           for repo in $repositories; do
+           
+#           done
 
 
 

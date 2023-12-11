@@ -25,6 +25,36 @@
 #      - run: echo ${{ matrix.repositories }}
 
 
+# name: Create ECR Repositories
+
+# on:
+#   push:
+#     branches:
+#       - master
+
+# jobs:
+#   create-repositories:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout to repository
+#         uses: actions/checkout@v4
+
+#       - name: Set matrix data
+#         run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_ENV
+
+#       - name: Create ECR Repositories
+#         run: |
+#           # Extract repository names from the matrix
+#           repositories=$(echo $matrix | jq -r '.repositories | join(" ")')
+
+#           # Loop through repositories and create ECR repositories
+#           for repo in $repositories; do
+#             # Add logic to create ECR repository (replace this with your actual command)
+#             echo "Creating ECR repository: $repo"
+#           done
+
+
+
 name: Create ECR Repositories
 
 on:
@@ -33,24 +63,17 @@ on:
       - master
 
 jobs:
-  create-repositories:
+  create-ecr-repo:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to repository
         uses: actions/checkout@v4
 
       - name: Set matrix data
-        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_ENV
+        id: set-matrix
+        run: echo "matrix=$(jq -c . < ./ecr-repo.json)" >> $GITHUB_ENV
 
-      - name: Create ECR Repositories
-        run: |
-          # Extract repository names from the matrix
-          repositories=$(echo $matrix | jq -r '.repositories | join(" ")')
 
-          # Loop through repositories and create ECR repositories
-          for repo in $repositories; do
-            # Add logic to create ECR repository (replace this with your actual command)
-            echo "Creating ECR repository: $repo"
-          done
-
+      - name: Create ECR Repositories and Apply Lifecycle Policy
+        run: echo ${{ matrix.repositories }}
 
