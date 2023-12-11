@@ -16,7 +16,7 @@ jobs:
        id: set-matrix
        run: echo "matrix=$(jq -c . < ./repo.json)" >> $GITHUB_OUTPUT
      - name: Output Repository name
-       run: echo "${{ steps.set-matrix.outputs.matrix }}"
+       run: echo "${{ steps.set-matrix.outputs.matrix.repositories }}"
        
   # print:
   #   runs-on: ubuntu-latest
