@@ -18,8 +18,8 @@ jobs:
      - name: Output Repository name
        id: repos
        run: echo ${{ fromJson(steps.set-matrix.outputs.matrix}) }}
-     - name: Out repository
-       run: echo ${{ steps.set-matrix.outputs }}
+    #  - name: Out repository
+    #    run: echo ${{ steps.set-matrix.outputs }}
 
     #  "${{ steps.set-matrix.outputs.matrix}}"
        
