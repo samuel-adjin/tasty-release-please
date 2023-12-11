@@ -51,7 +51,6 @@ jobs:
           for repo in $repositories; do
             # Add logic to create ECR repository (replace this with your actual command)
             echo "Creating ECR repository: $repo"
-            # Your ECR repository creation command goes here
           done
 
 
