@@ -1,0 +1,16 @@
+{
+    "rules": [
+      {
+        "rulePriority": 1,
+        "description": "Delete TEMPORARY tagged images",
+        "selection": {
+          "tagStatus": "tagged",
+          "tagPrefixList": ["TEMPORARY-"],
+          "countType": "sinceImagePushed",
+          "countUnit": "days",
+          "countNumber": 30
+        },
+        "action": { "type": "expire" }
+      }
+    ]
+  }
